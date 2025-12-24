@@ -3,7 +3,9 @@
 namespace App\Repository;
 
 use App\Http\Requests\AuthorStoreRequest;
+use App\Http\Requests\AuthorUpdateRequest;
 use App\Models\Author;
+
 class AuthorRepository
 {
     public function store(AuthorStoreRequest $authorRequest): Author
@@ -20,5 +22,14 @@ class AuthorRepository
         $author->save();
 
         return $author;
+    }
+
+    public function update(Author $author, AuthorUpdateRequest $authorUpdateRequest): Author
+    {
+        $author->update(
+            $authorUpdateRequest->validated()
+        );
+
+        return $author->refresh();
     }
 }

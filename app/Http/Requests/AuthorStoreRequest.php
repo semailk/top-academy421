@@ -19,7 +19,7 @@ class AuthorStoreRequest extends FormRequest
             'father_name'=> ['required', 'string', 'max:255'],
             'birth_date' => ['nullable', 'date'],
             'biography'  => ['nullable', 'string'],
-            'gender'     => ['required', 'boolean'],
+            'gender'     => ['required', 'string'],
             'active'     => ['nullable', 'boolean'],
         ];
     }

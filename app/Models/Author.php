@@ -2,7 +2,10 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
  * @property string $first_name
@@ -17,6 +20,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Author extends Model
 {
+    use HasFactory;
     protected $fillable = [
         'first_name',
         'last_name',
@@ -31,4 +35,9 @@ class Author extends Model
         'birth_date' => 'date',
         'created_at' => 'datetime',
     ];
+
+    public function book(): HasOne
+    {
+        return $this->hasOne(Book::class);
+    }
 }
