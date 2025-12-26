@@ -11,6 +11,7 @@ class AuthorRepository
     public function store(AuthorStoreRequest $authorRequest): Author
     {
         $validated = $authorRequest->validated();
+
         $author = new Author();
         $author->first_name = $validated['first_name'];
         $author->last_name = $validated['last_name'];

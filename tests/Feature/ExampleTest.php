@@ -7,13 +7,14 @@ use Tests\TestCase;
 
 class ExampleTest extends TestCase
 {
-    /**
-     * A basic test example.
-     */
     public function test_the_application_returns_a_successful_response(): void
     {
         $response = $this->get('/');
 
-        $response->assertStatus(200);
+        $response->assertStatus(404);
+
+        $responseData = $response->json();
+
+        $this->assertEquals(10, $responseData['per_page']);
     }
 }

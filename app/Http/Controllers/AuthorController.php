@@ -7,6 +7,7 @@ use App\Http\Requests\AuthorStoreRequest;
 use App\Http\Requests\AuthorUpdateRequest;
 use App\Models\Author;
 use App\Repository\AuthorRepository;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -14,7 +15,7 @@ use Illuminate\View\View;
 class AuthorController extends Controller
 {
     private AuthorRepository $authorRepository;
-    private const PER_PAGE = 1000;
+    private const PER_PAGE = 10;
 
     public function __construct(
         AuthorRepository $authorRepository
@@ -93,5 +94,20 @@ class AuthorController extends Controller
         $this->authorRepository->update($author, $authorUpdateRequest);
 
         return redirect()->back()->with(['success' => 'Author updated successfully']);
+    }
+
+    public function getAllAuthors(): JsonResponse
+    {
+        $search = \request()->input('search');
+
+        $query = Author::query();
+        if (!empty($search)) {
+            $query
+                ->where('first_name', 'like', '%' . $search . '%')
+                ->orWhere('last_name', 'like', '%' . $search . '%')
+                ->orWhere('father_name', 'like', '%' . $search . '%');
+        }
+
+        return response()->json($query->paginate(self::PER_PAGE));
     }
 }
