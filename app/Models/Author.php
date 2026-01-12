@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use ApiPlatform\Metadata\ApiResource;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
@@ -17,6 +19,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property integer $active
  * @property string $created_at
  * @property string $updated_at
+ * @property int $user_id
  */
 class Author extends Model
 {
@@ -29,6 +32,7 @@ class Author extends Model
         'biography',
         'gender',
         'active',
+        'user_id'
     ];
 
     protected $casts = [
@@ -39,5 +43,26 @@ class Author extends Model
     public function book(): HasOne
     {
         return $this->hasOne(Book::class);
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function gender(): string
+    {
+        return $this->gender == 1 ? 'Male' : 'Female';
+    }
+
+    public function active(): string
+    {
+        return $this->active == 1 ? 'active' : 'deactive';
+    }
+
+
+    public function fio(): string
+    {
+        return $this->last_name . ' ' . $this->first_name . ' ' . $this->father_name;
     }
 }

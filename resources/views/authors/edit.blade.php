@@ -1,3 +1,5 @@
+@extends('layouts.app')
+@section('content')
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -112,9 +114,11 @@
     </style>
 </head>
 <body>
+@if(session('success'))
 <div class="alert alert-success">
     {{  session('success') }}
 </div>
+@endif
 @if ($errors->any())
     <div class="alert alert-danger">
         <ul style="margin:0;padding-left:18px">
@@ -169,7 +173,7 @@
             <label>Биография</label>
             <textarea name="biography">{{ old('biography', $author->biography) }}</textarea>
         </div>
-
+        @if($author->user_id == auth()->user()->id || auth()->user()->isAdmin())
         <div class="form-group checkbox-group">
             <input type="checkbox" name="active" value="1"
                 @checked(old('active', $author->active))>
@@ -180,8 +184,10 @@
             <button type="submit" class="btn btn-save">Сохранить</button>
             <a href="{{ route('authors.index') }}" class="btn btn-cancel">Отмена</a>
         </div>
+        @endif
     </form>
 </div>
 
 </body>
 </html>
+@endsection

@@ -1,4 +1,6 @@
-<!DOCTYPE html>
+@extends('layouts.app')
+@section('content')
+    <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
@@ -15,7 +17,7 @@
             background: #fff;
             border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
         }
 
         table {
@@ -194,7 +196,6 @@
     </style>
 </head>
 <body>
-
 <h2>Список авторов</h2>
 
 <form method="GET" action="{{ url()->current() }}" class="filter-form">
@@ -234,7 +235,7 @@
                 <td>{{ $author->father_name }}</td>
                 <td>{{ \Carbon\Carbon::parse($author->birth_date)->format('d.m.Y') }}</td>
                 <td class="biography" title="{{ $author->biography }}">
-                    {{ $author->book->company->city->name }}
+                    {{ $author->biography }}
                 </td>
                 <td class="gender">{{ $author->gender }}</td>
                 <td>
@@ -264,3 +265,4 @@
 
 </body>
 </html>
+@endsection

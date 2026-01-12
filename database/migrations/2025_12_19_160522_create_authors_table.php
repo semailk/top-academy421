@@ -17,10 +17,12 @@ return new class extends Migration
             $table->string('last_name');
             $table->string('father_name');
             $table->string('birth_date')->nullable();
+            $table->foreignId('user_id')->constrained('users');
             $table->text('biography')->nullable();
             $table->boolean('gender');
             $table->unsignedTinyInteger('active')->default(1);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
