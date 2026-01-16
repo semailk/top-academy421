@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Jobs\SendMailJob;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -34,6 +35,7 @@ class ProfileController extends Controller
         }
 
         $request->user()->save();
+        SendMailJob::dispatch($request->user());
 
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }

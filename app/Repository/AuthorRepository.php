@@ -6,12 +6,14 @@ use App\Http\Requests\AuthorStoreRequest;
 use App\Http\Requests\AuthorUpdateRequest;
 use App\Models\Author;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 
 class AuthorRepository
 {
     public function store(AuthorStoreRequest $authorRequest): Author
     {
+        $user = Auth::user();
         $validated = $authorRequest->validated();
         $author = new Author();
         $author->first_name = $validated['first_name'];
@@ -21,8 +23,10 @@ class AuthorRepository
         $author->active = $validated['active'] ?? false;
         $author->birth_date = $validated['birth_date'];
         $author->gender = $validated['gender'];
+        $author->user_id = $user->id;
         $author->save();
 
+        Cache::put('author_' . $author->id, $author, 3600);
         return $author;
     }
 

@@ -25,9 +25,10 @@ Route::middleware('auth')->prefix('authors')->group(function () {
     Route::get('create', [AuthorController::class, 'create'])->name('authors.create');
     Route::post('', [AuthorController::class, 'store'])->name('authors.store');
     Route::get('trashed', [AuthorController::class, 'trashed'])->name('authors.trashed');
+    Route::get('restore', [AuthorController::class, 'getRestoreView'])->name('authors.restore');
     Route::get('{id}', [AuthorController::class, 'edit'])->name('authors.edit');
     Route::delete('{id}', [AuthorController::class, 'destroy'])->name('authors.destroy');
-    Route::post('{id}/restore', [AuthorController::class, 'restore'])->name('authors.restore');
+    Route::patch('restore/{id}', [AuthorController::class, 'restore'])->name('authors.restore.patch');
     Route::patch('{author}', [AuthorController::class, 'update'])->name('authors.update');
 });
 

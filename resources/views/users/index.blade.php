@@ -196,6 +196,12 @@
     </style>
 </head>
 <body>
+
+@if(session('success'))
+    <div class="alert alert-success">
+        {{  session('success') }}
+    </div>
+@endif
 <h2>Список юзеров</h2>
 
 <form method="GET" action="{{ url()->current() }}" class="filter-form">

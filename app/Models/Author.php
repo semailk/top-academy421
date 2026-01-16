@@ -3,11 +3,14 @@
 namespace App\Models;
 
 use ApiPlatform\Metadata\ApiResource;
+use App\Observers\AuthorObserver;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @property string $first_name
@@ -21,9 +24,10 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property string $updated_at
  * @property int $user_id
  */
+#[ObservedBy([AuthorObserver::class])]
 class Author extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
     protected $fillable = [
         'first_name',
         'last_name',
