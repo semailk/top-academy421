@@ -229,6 +229,8 @@
             <th>Пол</th>
             <th>Статус</th>
             <th>Действия</th>
+            <th>Юзер</th>
+            <th>Книги</th>
         </tr>
         </thead>
 
@@ -254,6 +256,14 @@
                     <a href="{{ route('authors.edit', $author->id) }}" class="btn-edit">
                         Редактировать
                     </a>
+                </td>
+                <td>
+                    {{ $author->user->name }} <br>
+                    {{ $author->user->email }} <br>
+                    {{ $author->user->role->name}} <br>
+                </td>
+                <td>
+                    {{ $author->book?->name }}
                 </td>
             </tr>
         @empty

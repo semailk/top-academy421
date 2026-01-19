@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @property string $name
@@ -15,4 +16,9 @@ class Role extends Model
         'name',
         'active',
     ];
+
+    public function users(): HasMany
+    {
+        return $this->hasMany(User::class);
+    }
 }

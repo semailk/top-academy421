@@ -32,7 +32,7 @@ class AuthorController extends Controller
 
     public function index(Request $request): View
     {
-        $authors = $this->authorRepository->getAuthorsToPaginate();
+        $authors = $this->authorRepository->getAuthorsToPaginate(1000);
 
         return view('authors.index', [
             'authors' => $authors,
