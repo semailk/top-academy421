@@ -48,7 +48,7 @@ class DatabaseSeeder extends Seeder
         ])
             ->count(20)
             ->has(Author::factory()
-                ->count(500)
+                ->count(5)
                 ->has(Book::factory()
                     ->for(Company::factory()
                         ->for(City::factory(), 'city'), 'company'), 'book'), 'authors')->create();

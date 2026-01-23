@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
-use ApiPlatform\Metadata\ApiResource;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @property string $name
@@ -34,5 +34,15 @@ class Book extends Model
     public function company(): BelongsTo
     {
         return $this->belongsTo(Company::class);
+    }
+
+    public function getNameAttribute(): string
+    {
+        return mb_strtolower($this->attributes['name']);
+    }
+
+    public function setNameAttribute(string $value): void
+    {
+        $this->attributes['name'] = mb_strtoupper($value);
     }
 }

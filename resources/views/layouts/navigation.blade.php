@@ -21,6 +21,10 @@
                     Authors
                 </a>
 
+                <a href="{{ route('books.index') }}" class="text-gray-700 hover:text-indigo-700 font-medium transition text-sm sm:text-base">
+                    Books
+                </a>
+
                 @if(auth()->user()?->isAdmin() ?? false)
                     <a href="{{ route('users.index') }}" class="text-gray-700 hover:text-indigo-700 font-medium transition text-sm sm:text-base">
                         Users
