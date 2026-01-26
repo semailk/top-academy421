@@ -24,28 +24,15 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-
-        $roles = [
-            'admin',
-            'user'
-        ];
-
-        foreach ($roles as $role) {
-            Role::query()->firstOrCreate(['name' => $role]);
-        }
-
         User::query()->firstOrCreate([
             'email_verified_at' => now(),
             'password' => Hash::make('adminadmin'),
             'remember_token' => Str::random(10),
             'name' => 'Admin',
-            'email' => 'test@example.com',
-            'role_id' => Role::query()->where('name', 'admin')->first()->id
+            'email' => 'test@example.com'
         ]);
 
-        User::factory([
-            'role_id' => Role::query()->where('name', 'user')->first()?->id
-        ])
+        User::factory()
             ->count(20)
             ->has(Author::factory()
                 ->count(5)

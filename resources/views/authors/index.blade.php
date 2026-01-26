@@ -207,13 +207,13 @@
     <input
         type="text"
         name="search"
-        placeholder="Поиск по имени, фамилии..."
+        placeholder="@lang('author.search_placeholder')"
         value="{{ request('search') }}"
         class="filter-input"
     >
 
     <button type="submit" class="filter-button">
-        Поиск
+        @lang('button.search')
     </button>
 </form>
 
@@ -221,16 +221,16 @@
     <table>
         <thead>
         <tr>
-            <th>Имя</th>
-            <th>Фамилия</th>
-            <th>Отчество</th>
-            <th>Дата рождения</th>
-            <th>Биография</th>
-            <th>Пол</th>
-            <th>Статус</th>
-            <th>Действия</th>
-            <th>Юзер</th>
-            <th>Книги</th>
+            <th>@lang('author.first_name')</th>
+            <th>@lang('author.last_name')</th>
+            <th>@lang('author.father_name')</th>
+            <th>@lang('author.birth_date')</th>
+            <th>@lang('author.biography')</th>
+            <th>@lang('author.gender')</th>
+            <th>@lang('author.active')</th>
+            <th>@lang('author.action')</th>
+            <th>@lang('author.user')</th>
+            <th>@lang('author.book')</th>
         </tr>
         </thead>
 
@@ -247,20 +247,22 @@
                 <td class="gender">{{ $author->gender }}</td>
                 <td>
                     @if($author->active)
-                        <span class="badge badge-active">Активен</span>
+                        <span class="badge badge-active">@lang('author.active')</span>
                     @else
-                        <span class="badge badge-inactive">Не активен</span>
+                        <span class="badge badge-inactive">@lang('author.deactivate')</span>
                     @endif
                 </td>
                 <td>
+                    @if(auth()->user()->can('edit_authors'))
                     <a href="{{ route('authors.edit', $author->id) }}" class="btn-edit">
-                        Редактировать
+                        @lang('button.edit')
                     </a>
+                    @endif
                 </td>
                 <td>
                     {{ $author->user->name }} <br>
                     {{ $author->user->email }} <br>
-                    {{ $author->user->role->name}} <br>
+{{--                    {{ $author->user?->role?->name}} <br>--}}
                 </td>
                 <td>
                     {{ $author->book?->name }}

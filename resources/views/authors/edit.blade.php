@@ -235,7 +235,7 @@
                         <textarea name="biography" placeholder="Расскажите о себе или об авторе...">{{ old('biography', $author->biography) }}</textarea>
                     </div>
 
-                    @if($author->user_id == auth()->id() || auth()->user()?->isAdmin())
+                    @if($author->user_id == auth()->id())
                         <div class="checkbox-group">
                             <input type="checkbox" name="active" value="1" @checked(old('active', $author->active) == 1 || old('active') === null && $author->active)>
                             <label>Активен (отображается публично)</label>

@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Translatable\HasTranslations;
 
 /**
  * @property string $first_name
@@ -27,7 +28,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 #[ObservedBy([AuthorObserver::class])]
 class Author extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, HasTranslations;
     protected $fillable = [
         'first_name',
         'last_name',
@@ -38,6 +39,8 @@ class Author extends Model
         'active',
         'user_id'
     ];
+
+    public array $translatable = ['biography'];
 
     protected $casts = [
         'birth_date' => 'date',

@@ -4,6 +4,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\Web\AuthorController;
 use App\Http\Controllers\Web\BookController;
 use App\Http\Controllers\Web\ProfileController;
+use App\Http\Middleware\SetLocale;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -12,10 +13,10 @@ Route::get('/', function () {
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth', 'verified', SetLocale::class])->name('dashboard');
 
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', SetLocale::class])->group(function () {
     Route::prefix('authors')->group(function () {
         Route::get('', [AuthorController::class, 'index'])->name('authors.index');
         Route::get('create', [AuthorController::class, 'create'])->name('authors.create');
@@ -38,6 +39,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+Route::get('/lang/{locale}', function ($locale) {
+    if (in_array($locale, ['ru', 'en'])) {
+        session(['locale' => $locale]);
+    }
+    return back();
 });
 
 require __DIR__ . '/auth.php';

@@ -91,13 +91,13 @@
 
             <div class="card-header">
                 <h1>Корзина авторов (удалённые)</h1>
-                <a href="{{ route('authors.index') }}" class="btn btn-back">← Назад к списку</a>
+                <a href="{{ route('authors.index') }}" class="btn btn-back">← @lang('button.back_to_list')</a>
             </div>
 
             @if($authors->isEmpty())
                 <div class="empty-state">
                     <p>В корзине пока нет удалённых авторов.</p>
-                    <a href="{{ route('authors.index') }}" class="btn btn-back" style="margin-top:1.5rem;">Вернуться к активным авторам</a>
+                    <a href="{{ route('authors.index') }}" class="btn btn-back" style="margin-top:1.5rem;">@lang('button.return_to_active_author')</a>
                 </div>
             @else
                 <table class="table">

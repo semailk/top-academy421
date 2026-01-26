@@ -72,7 +72,7 @@ class AuthorRepository
 
     public function getAuthorsToPaginate(?int $perPage = 10): LengthAwarePaginator
     {
-        return Author::query()->with(['user.role', 'book'])->paginate($perPage);
+        return Author::query()->with(['user', 'book'])->paginate($perPage);
     }
 
     public function update(Author $author, AuthorUpdateRequest $authorUpdateRequest): Author

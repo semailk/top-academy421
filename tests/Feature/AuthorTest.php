@@ -4,7 +4,6 @@ namespace Tests\Feature;
 
 // use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Models\Author;
-use App\Models\Role;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
@@ -16,8 +15,7 @@ class AuthorTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        $roleId = Role::query()->where('name', 'admin')->first()?->id;
-        $this->user = User::query()->where('role_id', $roleId)->first();
+        $this->user = User::query()->first();
     }
 //    public function test_authors_list(): void
 //    {

@@ -232,9 +232,11 @@
                     {{ $book->company->name ?? '—' }}
                 </td>
                 <td>
-                    <a href="{{ route('books.edit', $book->id) }}" class="btn-edit">
-                        Редактировать
-                    </a>
+                    @if(auth()->user()->can('books_authors'))
+                        <a href="{{ route('books.edit', $book->id) }}" class="btn-edit">
+                            Редактировать
+                        </a>
+                    @endif
                 </td>
             </tr>
         @empty
